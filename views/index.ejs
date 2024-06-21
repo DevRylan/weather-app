@@ -25,8 +25,7 @@
             <img class="important" src="images\yellow-moon-16536.png">
             <% } else if (!dayNight && clarity == "clear"){ %>
             <img class="important" src="images\yellow-sun-16526.png">
-            <% } %>
-            <% if(dayNight && clarity == "kindacloudy") {%>
+            <% } else if(dayNight && clarity == "kindacloudy") {%>
                 <img class="important" src="images\blue-clouds-and-blue-moon-16538.png">
             <% } else if (!dayNight && clarity == "kindacloudy"){ %>
                 <img class="important" src="images\yellow-sun-and-blue-cloud-16528.png">

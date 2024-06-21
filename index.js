@@ -29,15 +29,17 @@ app.post('/submit', async (req, res)=>{
     let clarity = "clear";
     //converts to Farienheight because for some fucking reason it has it in kelvin
     console.log(parsedWeather.clouds.all);
-    if (parsedWeather.clouds.all > 50 && parsedWeather.clouds.all < 80){
+    if (currentWeather === "Clouds"){
         clarity = "kindacloudy"
     }
 
     let now = new Date()
     let hour = now.getHours();
-    if (hour > 6 && hour < 17){
-        hour = false;
+    console.log("Hour: " +hour);
+    if (hour > 6 && hour < 19){
+        day = false;
     }
+    console.log("Day is " +day);
     submit = true;
     res.render("index.ejs", {"submit": submit, "temp": tempF, "dayNight": day, "parish": parish, "current": currentWeather, "clarity": clarity})
 });
