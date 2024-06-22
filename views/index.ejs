@@ -7,17 +7,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="icon" href="images\rainy-night-and-clouds-with-moon-16539.png">
 </head>
 <body>
-    <% if (submit == false){ %>
+    <% if (submit == false){ if (error){%>    
     <form action="/submit" method="post">
         <div class="container">
         <input type="text" required id="search" name="zip" placeholder="Please enter your zip code...">
+        <p class="error-message"style="color: red;  position: fixed; font-size: 14px; margin-bottom: 150px;">Please enter a valid US zip code '<%= response%>'' is not a zip code.</p>
         <input id="submit" type="submit">
     </div>
     </form>
+    <% } else{%>
+        <form action="/submit" method="post">
+            <div class="container">
+            <input type="text" required id="search" name="zip" placeholder="Please enter your zip code...">
+            <input id="submit" type="submit">
+        </div>
+        </form>
+    <% } %>
     <% } else{%>
         <div class="container1">
             <div class="inner-container">
@@ -32,7 +41,11 @@
             <% } %>
             <h3 class="weatherInfo important"><%= parish %></h3>
             <p class="weatherInfo important"><%=temp%>°</p>
-            <p class="weatherInfo important"><%=current%></p>
+            <p class="weatherInfo important">Current Weather: <%=current%></p>
+            <p>Feels like: <%= feel %>°</p>
+            <p>Humidity: <%= humidity %>%</p>
+            <p>Wind Speed: <%= speed %> MPH</p>
+            <p>Cloud Coverage: <%= coverage %>%</p>
         </div>
         </div>
     <% } %>

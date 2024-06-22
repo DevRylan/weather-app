@@ -43,6 +43,18 @@ body {
     left: 35%;
     top: 20vh;
     border-radius: 5%;
+    animation-name: slide;
+    animation-duration: 1s;
+}
+@keyframes slide{
+    0%{
+        margin-top: 200px;
+        opacity: .1;
+    }
+    100%{
+        margin-top: 0px;
+        opacity: 1;
+    }
 }
 .inner-container{
     width: 100%;
@@ -76,4 +88,35 @@ img{
 #search{
     background-color: rgb(240, 248, 255, .05);
     border: 1px solid rgb(0, 0, 0, 0.5);
+}
+.error-message{
+    animation-name: err;
+    animation-duration: 0.5s;
+}
+@keyframes err {
+    0% {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    20% {
+        margin-left: 20px;
+        margin-right: 0%;
+    }
+    40% {
+        margin-left: 0px;
+        margin-right: 20px;
+    }
+    60% {
+        margin-left: 20px;
+        margin-right: 0%;
+    }
+    80% {
+        margin-left: 0px;
+        margin-right: 20px;
+    }
+    
+    100% {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 }
