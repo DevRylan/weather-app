@@ -92,6 +92,10 @@ img{
 .error-message{
     animation-name: err;
     animation-duration: 0.5s;
+    color: red;  
+    position: fixed; 
+    font-size: 14px; 
+    margin-bottom: 150px;
 }
 @keyframes err {
     0% {
@@ -118,5 +122,31 @@ img{
     100% {
         margin-left: 0px;
         margin-right: 0px;
+    }
+}
+@media(max-width: 1080px) and (max-height: 1920px) and (min-width: 1000px){
+    .container{
+        height: 20vh;
+        width: 35%
+    }
+    .container1{
+        height: 20vh;
+        width: 35%;
+    }
+}
+@media (max-width: 900px){
+    body{
+        font-size: 8pt;
+    }
+    .error-message{
+        font-size: 9pt;
+    }
+    .container{
+        width: 80%;
+        left: 15%;
+    }
+    .container1{
+        width: 80%;
+        left: 15%;
     }
 }
