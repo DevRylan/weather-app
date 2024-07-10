@@ -40,24 +40,48 @@
                 <img class="important" src="images\yellow-sun-and-blue-cloud-16528.png">
             <% } %>
             <h3 class="weatherInfo important"><%= parish %></h3>
-            <p class="weatherInfo important"><%=temp%>°</p>
+            <p class="weatherInfo important tempValue"><%=temp%></p>
             <p class="weatherInfo important">Current Weather: <%=current%></p>
-            <p>Feels like: <%= feel %>°</p>
+            <p>Feels like: <span class="tempValue"><%= feel %></span></p>
             <p>Humidity: <%= humidity %>%</p>
             <p>Wind Speed: <%= speed %> MPH</p>
             <p>Cloud Coverage: <%= coverage %>%</p>
+            <button id="toggleTempUnit">Switch to <%= tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius' %></button>
         </div>
         </div>
     <% } %>
 </body>
 <script>
     console.log("Viewport width:", window.innerWidth, "pixels");
-
     let errorMessage = document.querySelector('.error-message');
     if (window.innerWidth <= 900) {
             errorMessage.textContent = "You did not enter a valid Zip code";
     }
-    
+    const toggleButton = document.getElementById('toggleTempUnit');
+    let tempUnit = 'fahrenheit'; // Default to Fahrenheit
+
+    toggleButton.addEventListener('click', () => {
+        // toggles temperature unit
+        tempUnit = tempUnit === 'celsius' ? 'fahrenheit' : 'celsius';
+        
+        // updates  temperature
+        const tempElements = document.querySelectorAll('.tempValue');
+        tempElements.forEach(el => {
+            const currentTemp = parseInt(el.textContent);
+            if (tempUnit === 'celsius') {
+                console.log('Converting to celsius');
+                const convertedTemp = Math.round((currentTemp - 32) * 5 / 9);
+                el.textContent = `${convertedTemp}°C`;
+            } else {
+                console.log('converting to farienhight');
+                const convertedTemp = Math.round((currentTemp * 9 / 5) + 32);
+                el.textContent = `${convertedTemp}°F`;
+            }
+        });
+        //updates button text
+        toggleButton.textContent = `Switch to ${tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}`;
+    });
+
 </script>
 
 </html>
