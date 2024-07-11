@@ -29,6 +29,7 @@
     <% } %>
     <% } else{%>
         <div class="container1">
+            <button id="toggleTempUnit">Switch to <%= tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius' %></button>
             <div class="inner-container">
             <% if(dayNight && clarity == "clear") {%>
             <img class="important" src="images\yellow-moon-16536.png">
@@ -46,7 +47,6 @@
             <p>Humidity: <%= humidity %>%</p>
             <p>Wind Speed: <%= speed %> MPH</p>
             <p>Cloud Coverage: <%= coverage %>%</p>
-            <button id="toggleTempUnit">Switch to <%= tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius' %></button>
         </div>
         </div>
     <% } %>
