@@ -36,11 +36,15 @@ app.post('/submit', async (req, res)=>{
     console.log(currentWeather);
     let day = true;
     let clarity = "clear";
+    let rain = false;
     let cloudCoverage = parsedWeather.clouds.all;
     //Converts all metrics to the imperial system and grabs other relevant weather data
     console.log(parsedWeather.clouds.all);
     if (currentWeather === "Clouds"){
         clarity = "kindacloudy"
+    }
+    else if (currentWeather === "Rain"){
+        rain = true;
     }
     console.log("windspeed:" +parsedWeather.wind.speed);
     let now = new Date()
@@ -52,11 +56,9 @@ app.post('/submit', async (req, res)=>{
     //Calculates if it is night or day
     console.log("Day is " + day);
     submit = true;
-    error = false;
-    res.render("index.ejs", {"submit": submit, "temp": tempFar + "°F", "dayNight": day, "parish": parish, "current": currentWeather, "clarity": clarity, "error": error, "feel": tempFeel + "°F", "humidity": humidity, "speed": windSpeed, "coverage": cloudCoverage, "tempUnit": "Fahrenheit"});
+    res.render("index.ejs", {"submit": submit, "rain": rain, "temp": tempFar + "°F", "night": day, "parish": parish, "current": currentWeather, "clarity": clarity, "feel": tempFeel + "°F", "humidity": humidity, "speed": windSpeed, "coverage": cloudCoverage, "tempUnit": "Fahrenheit"});
 }
 catch (error){
-    error = true;
     let response = req.body.zip;
     res.render("index.ejs", {"submit": submit, "error": error, "response": response});
 }

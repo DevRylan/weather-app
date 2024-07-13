@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="icon" href="images\rainy-night-and-clouds-with-moon-16539.png">
 </head>
 <body>
-    <% if (submit == false){ if (error){%>    
+    <% if (submit == false){ 
+        if (locals.error){
+    %>    
     <form action="/submit" method="post">
         <div class="container">
         <input type="text" required id="search" name="zip" placeholder="Please enter your zip code...">
@@ -19,27 +21,42 @@
         <input id="submit" type="submit">
     </div>
     </form>
-    <% } else{%>
+    <% } else { %>
         <form action="/submit" method="post">
             <div class="container">
             <input type="text" required id="search" name="zip" placeholder="Please enter your zip code...">
             <input id="submit" type="submit">
         </div>
         </form>
-    <% } %>
-    <% } else{%>
+    <% }} else{%>
         <div class="container1">
             <button id="toggleTempUnit">Switch to <%= tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius' %></button>
             <div class="inner-container">
-            <% if(dayNight && clarity == "clear") {%>
-            <img class="important" src="images\yellow-moon-16536.png">
-            <% } else if (!dayNight && clarity == "clear"){ %>
-            <img class="important" src="images\yellow-sun-16526.png">
-            <% } else if(dayNight && clarity == "kindacloudy") {%>
-                <img class="important" src="images\blue-clouds-and-blue-moon-16538.png">
-            <% } else if (!dayNight && clarity == "kindacloudy"){ %>
-                <img class="important" src="images\yellow-sun-and-blue-cloud-16528.png">
-            <% } %>
+            <% 
+                let imageSrc = "";
+                if (rain) {
+                    if (night) {
+                        imageSrc = "images/rainy-night-and-clouds-with-moon-16539.png";
+                    } else {
+                        imageSrc = "images/downpour-rainy-day-16531.png";
+                    }
+                } else {
+                    if (night) {
+                        if (clarity === "clear") {
+                            imageSrc = "images/yellow-moon-16536.png";
+                        } else if (clarity === "kindacloudy") {
+                            imageSrc = "images/blue-clouds-and-blue-moon-16538.png";
+                        }
+                    } else {
+                        if (clarity === "clear") {
+                            imageSrc = "images/yellow-sun-16526.png";
+                        } else if (clarity === "kindacloudy") {
+                            imageSrc = "images/yellow-sun-and-blue-cloud-16528.png";
+                        }
+                    }
+                }
+            %>
+            <img class="important" src="<%= imageSrc %>">                
             <h3 class="weatherInfo important"><%= parish %></h3>
             <p class="weatherInfo important tempValue"><%=temp%></p>
             <p class="weatherInfo important">Current Weather: <%=current%></p>
@@ -54,12 +71,12 @@
 <script>
     console.log("Viewport width:", window.innerWidth, "pixels");
     let errorMessage = document.querySelector('.error-message');
-    if (window.innerWidth <= 900) {
+    if (window.innerWidth <= 1100 && errorMessage) {
             errorMessage.textContent = "You did not enter a valid Zip code";
     }
     const toggleButton = document.getElementById('toggleTempUnit');
     let tempUnit = 'fahrenheit'; // Default to Fahrenheit
-
+    if (toggleButton){
     toggleButton.addEventListener('click', () => {
         // toggles temperature unit
         tempUnit = tempUnit === 'celsius' ? 'fahrenheit' : 'celsius';
@@ -80,8 +97,9 @@
         });
         //updates button text
         toggleButton.textContent = `Switch to ${tempUnit === 'celsius' ? 'Fahrenheit' : 'Celsius'}`;
+           
     });
+    }
 
 </script>
-
 </html>
